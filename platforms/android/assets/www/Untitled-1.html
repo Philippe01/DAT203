@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Untitled Document</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+</head>
+<body>
+
+    <section data-role='page' id='"+results.rows.item(i).URL+"'>
+        <div class='img-main-page' style='background: url("+results.rows.item(i).Img_Url+") no-repeat center center; background-size: cover;'>
+            <h2 class='Title'>"+results.rows.item(i).Title+"</h2>
+        </div>
+
+        <div class='item-content' >
+            <div class='content-wpr'>
+                <h3 class='Rating-Title'>Rating</h3>
+                <div class='Rate'>
+                </div>
+            </div>
+
+            <div class='content-wpr'>
+                <h3>Description</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+
+            <div class='content-wpr photo'>
+                <h3>Photo</h3>
+                <div style='background: url("+results.rows.item(i).Img_Url+") no-repeat center center; background-size: cover;'></div>
+                <div style='background: url("+ results.rows.item(i).Img_Url+") no-repeat center center; background-size: cover;'></div>
+                <div style='background: url("+results.rows.item(i).Img_Url+") no-repeat center center; background-size: cover;'></div>
+                <div>
+                    <p>See More</p>
+                </div>
+            </div>
+
+            <div class='content-wpr'>
+                <h3>Location</h3>
+                <div id='map-canvas' style='background: url("+map_img+") no-repeat center center; background-size: cover;' >
+                </div>
+            </div>
+
+            <div class='content-wpr'>
+                <p class='Add-New'>Add New</p>
+            </div>
+        </div>
+        
+    </section>
+    
+    
+</body>
+</html>
