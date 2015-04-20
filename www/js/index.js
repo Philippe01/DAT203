@@ -7,10 +7,39 @@ var Description = [];
 var Date_of_Crimes = [];
 var userLocationLat = 0.0;
 var userLocationLon = 0.0;
+var location_lat = [];
+var location_long = [];
 
 
 
-function initialize() {
+
+// Get Location
+
+function getGeolocation(){  
+
+  var Options = { enableHighAccuracy: false };
+
+  navigator.geolocation.getCurrentPosition(geolocationSuccess, onError, Options);
+
+  function geolocationSuccess(position) {
+
+    var loc = position.coords.latitude+","+position.coords.longitude;
+    location_lat.push(position.coords.latitude); 
+    location_long.push(position.coords.longitude); 
+
+  }
+
+  // onError Callback receives a PositionError object
+  //
+  function onError(error) {
+    alert('code: '    + error.code    + '\n' +
+          'message: ' + error.message + '\n');
+  }
+
+}
+
+
+function initialize() { 
     var styles = [
       {
         "stylers": [
@@ -40,6 +69,8 @@ function initialize() {
     });
     
     heatmap.setMap(map);
+  
+    getGeolocation()
     
     alert("map data loaded")
 
