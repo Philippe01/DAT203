@@ -1,5 +1,22 @@
-var map, pointarray, heatmap;
-
+var pointarray, heatmap;
+var styles = [
+  {
+    "stylers": [
+      { "saturation": 22 },
+      { "invert_lightness": true },
+      { "lightness": 16 },
+      { "weight": 2 },
+      { "hue": "#00ccff" }
+    ]
+  }
+];
+var mapOptions = {
+  center: { lat: 50.3714, lng: -4.1422},
+  zoom: 14,
+  styles: styles
+};
+var map = new google.maps.Map(document.getElementById('map-canvas'),
+                              mapOptions);
 var data;
 var heatmapData = [];
 var CrimesDataCat = [];
@@ -10,30 +27,35 @@ var userLocationLon = 0.0;
 var location_lat;
 var location_long;
 var Record_Coordinates = [];
-
+var route = [
+  new google.maps.LatLng(37.772323, -122.214897),
+  new google.maps.LatLng(21.291982, -157.821856),
+  new google.maps.LatLng(-18.142599, 178.431),
+  new google.maps.LatLng(-27.46758, 153.027892)
+];
 function initialize() { 
   console.log(location_lat +" "+ location_long);
-  
-  var styles = [
-    {
-      "stylers": [
-        { "saturation": 22 },
-        { "invert_lightness": true },
-        { "lightness": 16 },
-        { "weight": 2 },
-        { "hue": "#00ccff" }
-      ]
-    } 
-  ];
 
+//  var styles = [
+//    {
+//      "stylers": [
+//        { "saturation": 22 },
+//        { "invert_lightness": true },
+//        { "lightness": 16 },
+//        { "weight": 2 },
+//        { "hue": "#00ccff" }
+//      ]
+//    }
+//  ];
+//
 
-  var mapOptions = {
-    center: { lat: 50.3714, lng: -4.1422},
-    zoom: 14,
-    styles: styles
-  };
-  map = new google.maps.Map(document.getElementById('map-canvas'),
-                            mapOptions);
+//  var mapOptions = {
+//    center: { lat: 50.3714, lng: -4.1422},
+//    zoom: 14,
+//    styles: styles
+//  };
+//  map = new google.maps.Map(document.getElementById('map-canvas'),
+//                            mapOptions);
 
 
   var pointArray = new google.maps.MVCArray(heatmapData);
@@ -45,18 +67,19 @@ function initialize() {
   heatmap.setMap(map);
   
 
-  var intervalID = window.setInterval(get_current_loc, 5000);
+
+  var intervalID = window.setInterval(get_current_loc, 2000);
 }
 
 
 function get_current_loc() {
-
+  
   navigator.geolocation.getCurrentPosition(geolocationSuccess, onError);
 
   function geolocationSuccess(position) {
 
     Record_Coordinates.push( position.coords.latitude, position.coords.longitude );
-
+    route.push( new google.maps.LatLng( position.coords.latitude, position.coords.longitude ));
     console.log( Record_Coordinates );
 
     userLocationLat = Record_Coordinates[Record_Coordinates.length-2];
@@ -72,7 +95,7 @@ function get_current_loc() {
 
         console.log(CrimesDataCat[arrayLoc]);
 
-        
+
         //////////////////////////////////////////////////////
         // Play sound files ///////////////////////////////////
         //////////////////////////////////////////////////////
@@ -82,16 +105,26 @@ function get_current_loc() {
           document.getElementById('bassPlay').play();
         }
         //////////////////////////////////////////////////////
-        
-        
+
+
 
         $("#container").append('<li id="list'+i+'" onclick="drag(list'+i+')" > <h3>' + CrimesDataCat[arrayLoc] + '</h3><p class="text" >'+ Description[arrayLoc] +'</p><p class="date">'+Date_of_Crimes[arrayLoc]+'</p></li>');
         //        console.log("close");
 
       }
     }
+    var path = new google.maps.Polyline({
+      path: route,
+      geodesic: true,
+      strokeColor: '#00baff',
+      strokeOpacity: 1.0,
+      strokeWeight: 5
+    });
+
+    path.setMap(map);
+
   }
-  
+
 }
 
 
@@ -145,7 +178,7 @@ function sendMyAjax(URL_address){
     // callback stuff
   })
     .done(function(json) {
-//    console.log(json)    
+    //    console.log(json)    
     for (var i = 0; i < json.length; i++){
 
       var randomLat = (Math.random() * (0.001 - 0.00005) + 0.00005).toFixed(7)    
@@ -199,7 +232,7 @@ function geolocationSuccess(position) {
       sendMyAjax("http://data.police.uk/api/crimes-street/all-crime?lat="+location_lat+"&lng="+location_long+"&date=2014-" + i, i)    
     }        
   }
-  
+
   return location_lat, location_long;
 
 }
