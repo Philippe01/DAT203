@@ -9,9 +9,10 @@ var userLocationLat = 0.0;
 var userLocationLon = 0.0;
 var location_lat;
 var location_long;
-
+var Record_Coordinates = [];
 
 function initialize() { 
+  console.log(location_lat +" "+ location_long);
   
   var styles = [
     {
@@ -42,15 +43,24 @@ function initialize() {
   });
 
   heatmap.setMap(map);
-
-
-  alert("map data loaded")
-
   
-  google.maps.event.addListener(map, "click", function (event) {
-    
-    userLocationLat = event.latLng.lat();
-    userLocationLon = event.latLng.lng();
+
+  var intervalID = window.setInterval(get_current_loc, 5000);
+}
+
+
+function get_current_loc() {
+
+  navigator.geolocation.getCurrentPosition(geolocationSuccess, onError);
+
+  function geolocationSuccess(position) {
+
+    Record_Coordinates.push( position.coords.latitude, position.coords.longitude );
+
+    console.log( Record_Coordinates );
+
+    userLocationLat = Record_Coordinates[Record_Coordinates.length-2];
+    userLocationLon = Record_Coordinates[Record_Coordinates.length-1];
     console.log( userLocationLat + ', ' + userLocationLon );
 
     document.getElementById("container").innerHTML = ""; 
@@ -62,22 +72,30 @@ function initialize() {
 
         console.log(CrimesDataCat[arrayLoc]);
 
+        
+        //////////////////////////////////////////////////////
+        // Play sound files ///////////////////////////////////
+        //////////////////////////////////////////////////////
         if(CrimesDataCat[arrayLoc] === "anti-social-behaviour" ) {       
           document.getElementById('violinPlay').play();
         } else if (CrimesDataCat[arrayLoc] === "shoplifting" ){
           document.getElementById('bassPlay').play();
-        }    
+        }
+        //////////////////////////////////////////////////////
+        
+        
 
         $("#container").append('<li id="list'+i+'" onclick="drag(list'+i+')" > <h3>' + CrimesDataCat[arrayLoc] + '</h3><p class="text" >'+ Description[arrayLoc] +'</p><p class="date">'+Date_of_Crimes[arrayLoc]+'</p></li>');
         //        console.log("close");
 
       }
     }
-
-  });
-
+  }
+  
 }
 
+
+// last 
 
 function toggleHeatmap() {
   heatmap.setMap(heatmap.getMap() ? null : map);
@@ -116,6 +134,9 @@ function updateCounterStatus( item, new_counter ) {
 }
 
 
+
+// 1st 
+
 function sendMyAjax(URL_address){
   $.ajax({
     dataType: 'json',
@@ -124,7 +145,7 @@ function sendMyAjax(URL_address){
     // callback stuff
   })
     .done(function(json) {
-    console.log(json)    
+//    console.log(json)    
     for (var i = 0; i < json.length; i++){
 
       var randomLat = (Math.random() * (0.001 - 0.00005) + 0.00005).toFixed(7)    
@@ -160,35 +181,38 @@ function getGeolocation(){
 
   navigator.geolocation.getCurrentPosition(geolocationSuccess, onError, Options);
 
-  function geolocationSuccess(position) {
+}
 
-    var location_lat = position.coords.latitude;
-    var location_long = position.coords.longitude;
 
-    console.log(location_lat +" "+ location_long);
-    
-    for (var i = 7; i <= 12; i++) {
-      if (i < 10) {
-        sendMyAjax("http://data.police.uk/api/crimes-street/all-crime?lat="+location_lat+"&lng="+location_long+"&date=2014-0" + i, i)
-      }
-      else if (i > 9) {
-        sendMyAjax("http://data.police.uk/api/crimes-street/all-crime?lat="+location_lat+"&lng="+location_long+"&date=2014-" + i, i)    
-      }        
+function geolocationSuccess(position) {
+
+  var location_lat = position.coords.latitude;
+  var location_long = position.coords.longitude;
+
+  console.log(location_lat +" "+ location_long);
+
+  for (var i = 7; i <= 12; i++) {
+    if (i < 10) {
+      sendMyAjax("http://data.police.uk/api/crimes-street/all-crime?lat="+location_lat+"&lng="+location_long+"&date=2014-0" + i, i)
     }
-
+    else if (i > 9) {
+      sendMyAjax("http://data.police.uk/api/crimes-street/all-crime?lat="+location_lat+"&lng="+location_long+"&date=2014-" + i, i)    
+    }        
   }
-
-  // onError Callback receives a PositionError object
-  //
-  function onError(error) {
-    alert('code: '    + error.code    + '\n' +
-          'message: ' + error.message + '\n');
-  }
+  
+  return location_lat, location_long;
 
 }
 
-getGeolocation();
+// onError Callback receives a PositionError object
+//
+function onError(error) {
+  alert('code: '    + error.code    + '\n' +
+        'message: ' + error.message + '\n');
+}
 
+
+getGeolocation();
 
 
 google.maps.event.addDomListener(window, 'load', initialize);
@@ -199,7 +223,34 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
 
 
-
+//  google.maps.event.addListener(map, "click", function (event) {
+//    
+//    userLocationLat = event.latLng.lat();
+//    userLocationLon = event.latLng.lng();
+//    console.log( userLocationLat + ', ' + userLocationLon );
+//
+//    document.getElementById("container").innerHTML = ""; 
+//
+//    for (var i = 0; i < heatmapData.length; i++) {
+//
+//      if ((Math.abs(userLocationLat - heatmapData[i].k) < 0.0002) && (Math.abs(userLocationLon - heatmapData[i].D) < 0.0002))  {
+//        var arrayLoc = i        
+//
+//        console.log(CrimesDataCat[arrayLoc]);
+//
+//        if(CrimesDataCat[arrayLoc] === "anti-social-behaviour" ) {       
+//          document.getElementById('violinPlay').play();
+//        } else if (CrimesDataCat[arrayLoc] === "shoplifting" ){
+//          document.getElementById('bassPlay').play();
+//        }    
+//
+//        $("#container").append('<li id="list'+i+'" onclick="drag(list'+i+')" > <h3>' + CrimesDataCat[arrayLoc] + '</h3><p class="text" >'+ Description[arrayLoc] +'</p><p class="date">'+Date_of_Crimes[arrayLoc]+'</p></li>');
+//        //        console.log("close");
+//
+//      }
+//    }
+//
+//  });
 
 
 
