@@ -68,7 +68,7 @@ function initialize() {
   
 
 
-  var intervalID = window.setInterval(get_current_loc, 2000);
+  var intervalID = window.setInterval(get_current_loc, 5000);
 }
 
 
