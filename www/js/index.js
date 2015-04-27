@@ -33,7 +33,7 @@ var route = [
   new google.maps.LatLng(-18.142599, 178.431),
   new google.maps.LatLng(-27.46758, 153.027892)
 ];
-function initialize() { 
+function initialize() {  
   console.log(location_lat +" "+ location_long);
 
 //  var styles = [
