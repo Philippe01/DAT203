@@ -1,6 +1,3 @@
-
-
-
 var pointarray, heatmap;
 
 var styles = [
@@ -15,7 +12,6 @@ var styles = [
   }
 ];
 
-
 var data;
 var heatmapData = [];
 var CrimesDataCat = [];
@@ -27,15 +23,18 @@ var location_lat = 0;
 var location_long = 0;
 var Record_Coordinates = [];
 var route = [];
+var bounds;
+var intervalID;
 
 var mapOptions = {
   center: { lat: location_lat, lng: location_long},
   zoom: 14,
-  styles: styles
+  styles: styles,
+  disableDefaultUI: true
 };
 
-var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-var intervalID;
+var map;
+
 
 /////// SOUNDS ////////
 var bass = document.createElement('audio');
@@ -49,44 +48,47 @@ publicOrderSound.setAttribute('preload', 'auto');
 
 
 function initialize() { 
-//  console.log(location_lat +" "+ location_long);
-  
+  //  console.log(location_lat +" "+ location_long);
+
   var pointArray = new google.maps.MVCArray(heatmapData);
 
   heatmap = new google.maps.visualization.HeatmapLayer({
     data: pointArray,
   });
 
-//  heatmap.setMap(map);
-  
-  intervalID = window.setInterval(get_current_loc, 5000);
+  // heatmap.setMap(map);
+
+  //intervalID = window.setInterval(get_current_loc, 5000);
 }
+
 
 function begin() {
   var id = document.getElementById("startElement");
   id.parentNode.removeChild(id);
   get_current_loc();
-  
+
   $("#map-canvas").css("height", "90vh");
   $("#endButton").css("display", "block");
   bass.play();
 
 }
+
+
 function get_current_loc() {
   console.log("running");
   var Options = { enableHighAccuracy: true };
-  
+
   navigator.geolocation.getCurrentPosition(geolocationSuccess, onError, Options);
 
   function geolocationSuccess(position) {
 
     Record_Coordinates.push( position.coords.latitude, position.coords.longitude );
     route.push( new google.maps.LatLng( position.coords.latitude, position.coords.longitude ));
-//    console.log( Record_Coordinates );
+    //    console.log( Record_Coordinates );
 
     userLocationLat = Record_Coordinates[Record_Coordinates.length-2];
     userLocationLon = Record_Coordinates[Record_Coordinates.length-1];
-//    console.log( userLocationLat + ', ' + userLocationLon );
+    //    console.log( userLocationLat + ', ' + userLocationLon );
 
     document.getElementById("container").innerHTML = ""; 
 
@@ -102,9 +104,9 @@ function get_current_loc() {
         // Play sound files ///////////////////////////////////
         //////////////////////////////////////////////////////
         if(CrimesDataCat[arrayLoc] === "anti-social-behaviour" ) {       
-//          document.getElementById('violinPlay').play();
+          //          document.getElementById('violinPlay').play();
         } else if (CrimesDataCat[arrayLoc] === "shoplifting" ){
-//          document.getElementById('bassPlay').play();
+          //          document.getElementById('bassPlay').play();
         } else if (CrimesDataCat[arrayLoc] === "public-order" ) {
           publicOrderSound.play();  
         }
@@ -113,11 +115,11 @@ function get_current_loc() {
 
 
         $("#container").append('<li id="list'+i+'" > <h3>' + CrimesDataCat[arrayLoc] + '</h3><p class="text" >'+ Description[arrayLoc] +'</p><p class="date">'+Date_of_Crimes[arrayLoc]+'</p></li>');
-        //        console.log("close");
+        //  console.log("close");
 
       }
     }
-    
+
     var path = new google.maps.Polyline({
       path: route,
       geodesic: true,
@@ -137,8 +139,7 @@ function get_current_loc() {
 
 function toggleHeatmap() {
   heatmap.setMap(heatmap.getMap() ? null : map);
-
-  
+  bass.play();
 }
 
 
@@ -148,7 +149,7 @@ function map_range(value, low1, high1, low2, high2) {
 
 // 1st 
 
-function sendMyAjax(URL_address){
+function sendMyAjax(URL_address) {
   $.ajax({
     dataType: 'json',
     url: URL_address,
@@ -179,7 +180,8 @@ function sendMyAjax(URL_address){
 
     google.maps.event.trigger(map, 'resize');
   });
-};
+  
+}
 
 
 
@@ -197,10 +199,10 @@ function getGeolocation(){
 
 function geolocationSuccess(position) {
 
-   location_lat = position.coords.latitude;
-   location_long = position.coords.longitude;
+  location_lat = position.coords.latitude;
+  location_long = position.coords.longitude;
 
-//  console.log(location_lat +" "+ location_long);
+  //  console.log(location_lat +" "+ location_long);
 
   for (var i = 7; i <= 12; i++) {
     if (i < 10) {
@@ -213,9 +215,44 @@ function geolocationSuccess(position) {
   mapOptions = {
     center: { lat: location_lat, lng: location_long},
     zoom: 14,
-    styles: styles
+    styles: styles,
   };
+  
   map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+  
+  google.maps.event.addListener(map, "click", function (event) {
+    
+    userLocationLat = event.latLng.lat();
+    userLocationLon = event.latLng.lng();
+    console.log( userLocationLat + ', ' + userLocationLon );
+
+    document.getElementById("container").innerHTML = ""; 
+
+    for (var i = 0; i < heatmapData.length; i++) {
+
+      if ((Math.abs(userLocationLat - heatmapData[i].k) < 0.0002) && (Math.abs(userLocationLon - heatmapData[i].D) < 0.0002))  {
+        var arrayLoc = i        
+
+        console.log(CrimesDataCat[arrayLoc]);
+
+        if(CrimesDataCat[arrayLoc] === "anti-social-behaviour" ) {       
+//          document.getElementById('violinPlay').play();
+        } else if (CrimesDataCat[arrayLoc] === "shoplifting" ){
+//          document.getElementById('bassPlay').play();
+        }    
+
+        $("#container").append('<li id="list'+i+'" onclick="drag(list'+i+')" > <h3>' + CrimesDataCat[arrayLoc] + '</h3><p class="text" >'+ Description[arrayLoc] +'</p><p class="date">'+Date_of_Crimes[arrayLoc]+'</p></li>');
+        //        console.log("close");
+
+      }
+    }
+
+  });
+
+  
+  
+  
+  
   return location_lat, location_long;
 
 }
@@ -229,59 +266,23 @@ function onError(error) {
 
 function end() {
   heatmap.setMap(map);
-//  heatmap.setMap(heatmap.getMap() ? null : map);
+  //  heatmap.setMap(heatmap.getMap() ? null : map);
   clearInterval(intervalID);
   
-//  bounds = new google.maps.LatLngBounds();
   
-//  for (var i = 0; i < Record_Coordinates.length; i+=2) {
-//    console.log(Record_Coordinates[i]);
-////    bounds.extend(Record_Coordinates[i],Record_Coordinates[i+1]);
-//  }
-//  
   var bounds = new google.maps.LatLngBounds(
     new google.maps.LatLng(Record_Coordinates[0],Record_Coordinates[1]),
     new google.maps.LatLng(Record_Coordinates[Record_Coordinates.length-2], Record_Coordinates[Record_Coordinates.length-1])
+    
   );
-  
+
   map.fitBounds(bounds);
 }
 
 
+
 getGeolocation();
-
 google.maps.event.addDomListener(window, 'load', initialize);
-
-  
-google.maps.event.addListener(map, "click", function (event) {
-
-  userLocationLat = event.latLng.lat();
-  userLocationLon = event.latLng.lng();
-  console.log( userLocationLat + ', ' + userLocationLon );
-
-  document.getElementById("container").innerHTML = ""; 
-
-  for (var i = 0; i < heatmapData.length; i++) {
-
-    if ((Math.abs(userLocationLat - heatmapData[i].k) < 0.0002) && (Math.abs(userLocationLon - heatmapData[i].D) < 0.0002))  {
-      var arrayLoc = i        
-
-      console.log(CrimesDataCat[arrayLoc]);
-
-      if(CrimesDataCat[arrayLoc] === "anti-social-behaviour" ) {       
-        document.getElementById('violinPlay').play();
-      } else if (CrimesDataCat[arrayLoc] === "shoplifting" ){
-        document.getElementById('bassPlay').play();
-      }    
-
-      $("#container").append('<li id="list'+i+'" onclick="drag(list'+i+')" > <h3>' + CrimesDataCat[arrayLoc] + '</h3><p class="text" >'+ Description[arrayLoc] +'</p><p class="date">'+Date_of_Crimes[arrayLoc]+'</p></li>');
-      //        console.log("close");
-
-    }
-  }
-
-});
-
 
 
 
