@@ -57,21 +57,6 @@ li {
     overflow-x: hidden;
     max-height: 50vh;
 }
-
-/*
-button {
-    position: fixed;
-    width: 100%;
-    z-index: 1;
-    height: 10vh;
-    padding: 10px;
-    bottom: 0;
-    background-color: firebrick;
-    border: 1px solid #000;
-    color: #fff;
-    font-size: 16px;
-}
-*/
 #startButton, p {
   font-size: 16px;
 }

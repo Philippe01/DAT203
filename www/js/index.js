@@ -1,4 +1,4 @@
-document.addEventListener("deviceready", onDeviceReady, false);
+
 
 
 var pointarray, heatmap;
@@ -26,35 +26,7 @@ var userLocationLon = 0.0;
 var location_lat = 0;
 var location_long = 0;
 var Record_Coordinates = [];
-<<<<<<< HEAD
-var route = [
-  new google.maps.LatLng(37.772323, -122.214897),
-  new google.maps.LatLng(21.291982, -157.821856),
-  new google.maps.LatLng(-18.142599, 178.431),
-  new google.maps.LatLng(-27.46758, 153.027892)
-];
-function initialize() {  
-  console.log(location_lat +" "+ location_long);
-
-//  var styles = [
-//    {
-//      "stylers": [
-//        { "saturation": 22 },
-//        { "invert_lightness": true },
-//        { "lightness": 16 },
-//        { "weight": 2 },
-//        { "hue": "#00ccff" }
-//      ]
-//    }
-//  ];
-//
-=======
 var route = [];
-<<<<<<< HEAD
->>>>>>> phonegap
-=======
-var bounds;
-
 
 var mapOptions = {
   center: { lat: location_lat, lng: location_long},
@@ -63,10 +35,7 @@ var mapOptions = {
 };
 
 var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-
-
 var intervalID;
->>>>>>> phonegap
 
 /////// SOUNDS ////////
 var bass = document.createElement('audio');
@@ -278,12 +247,40 @@ function end() {
   map.fitBounds(bounds);
 }
 
-function onDeviceReady() {  
-  getGeolocation();
 
-  google.maps.event.addDomListener(window, 'load', initialize);
-}
+getGeolocation();
 
+google.maps.event.addDomListener(window, 'load', initialize);
+
+  
+google.maps.event.addListener(map, "click", function (event) {
+
+  userLocationLat = event.latLng.lat();
+  userLocationLon = event.latLng.lng();
+  console.log( userLocationLat + ', ' + userLocationLon );
+
+  document.getElementById("container").innerHTML = ""; 
+
+  for (var i = 0; i < heatmapData.length; i++) {
+
+    if ((Math.abs(userLocationLat - heatmapData[i].k) < 0.0002) && (Math.abs(userLocationLon - heatmapData[i].D) < 0.0002))  {
+      var arrayLoc = i        
+
+      console.log(CrimesDataCat[arrayLoc]);
+
+      if(CrimesDataCat[arrayLoc] === "anti-social-behaviour" ) {       
+        document.getElementById('violinPlay').play();
+      } else if (CrimesDataCat[arrayLoc] === "shoplifting" ){
+        document.getElementById('bassPlay').play();
+      }    
+
+      $("#container").append('<li id="list'+i+'" onclick="drag(list'+i+')" > <h3>' + CrimesDataCat[arrayLoc] + '</h3><p class="text" >'+ Description[arrayLoc] +'</p><p class="date">'+Date_of_Crimes[arrayLoc]+'</p></li>');
+      //        console.log("close");
+
+    }
+  }
+
+});
 
 
 
