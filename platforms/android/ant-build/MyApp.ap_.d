@@ -1,6 +1,5 @@
 /Users/phillipemarr/Documents/DAT203/platforms/android/ant-build/MyApp.ap_ \
  : /Users/phillipemarr/Documents/DAT203/platforms/android/res/drawable/icon.png \
-/Users/phillipemarr/Documents/DAT203/platforms/android/res/drawable-hdpi/icon.png \
 /Users/phillipemarr/Documents/DAT203/platforms/android/res/drawable-land-hdpi/screen.png \
 /Users/phillipemarr/Documents/DAT203/platforms/android/res/drawable-land-ldpi/screen.png \
 /Users/phillipemarr/Documents/DAT203/platforms/android/res/drawable-land-mdpi/screen.png \
@@ -12,7 +11,6 @@
 /Users/phillipemarr/Documents/DAT203/platforms/android/res/values/strings.xml \
 /Users/phillipemarr/Documents/DAT203/platforms/android/res/xml/config.xml \
 /Users/phillipemarr/Documents/DAT203/platforms/android/ant-build/res/drawable/icon.png \
-/Users/phillipemarr/Documents/DAT203/platforms/android/ant-build/res/drawable-hdpi/icon.png \
 /Users/phillipemarr/Documents/DAT203/platforms/android/ant-build/res/drawable-land-hdpi/screen.png \
 /Users/phillipemarr/Documents/DAT203/platforms/android/ant-build/res/drawable-land-ldpi/screen.png \
 /Users/phillipemarr/Documents/DAT203/platforms/android/ant-build/res/drawable-land-mdpi/screen.png \
