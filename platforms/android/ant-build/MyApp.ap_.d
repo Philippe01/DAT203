@@ -50,6 +50,7 @@
 /Users/phillipemarr/Documents/DAT203/platforms/android/assets/www/js/hammer.min.map \
 /Users/phillipemarr/Documents/DAT203/platforms/android/assets/www/js/index.js \
 /Users/phillipemarr/Documents/DAT203/platforms/android/assets/www/js/jquery-1.11.1.js \
+/Users/phillipemarr/Documents/DAT203/platforms/android/assets/www/js/SocialSharing.js \
 /Users/phillipemarr/Documents/DAT203/platforms/android/assets/www/plugins/org.apache.cordova.camera \
 /Users/phillipemarr/Documents/DAT203/platforms/android/assets/www/plugins/org.apache.cordova.camera/www \
 /Users/phillipemarr/Documents/DAT203/platforms/android/assets/www/plugins/org.apache.cordova.camera/www/Camera.js \

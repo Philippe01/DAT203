@@ -41,15 +41,69 @@ var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions)
 
 var intervalID;
 
-/////// SOUNDS ////////
+// ================================Sound Setup ================================
 var bass = document.createElement('audio');
 bass.setAttribute('src', 'wav/bassLouder.wav');
 bass.setAttribute('preload', 'auto');
 bass.setAttribute('loop', 'true');
 
+//-----Crime Sounds-----
+var bicycleTheftSound = document.createElement('audio');
+bicycleTheftSound.setAttribute('src', 'sounds/bicycle-theft.wav');
+bicycleTheftSound.setAttribute('preload', 'auto');
+
+var antiSocialBehaviourSound = document.createElement('audio');
+antiSocialBehaviourSound.setAttribute('src', 'sounds/anti-social-behaviour.wav');
+antiSocialBehaviourSound.setAttribute('preload', 'auto');
+
+var shopliftingSound = document.createElement('audio');
+shopliftingSound.setAttribute('src', 'sounds/shoplifting.wav');
+shopliftingSound.setAttribute('preload', 'auto');
+
+var otherTheftSound = document.createElement('audio');
+otherTheftSound.setAttribute('src', 'sounds/other-theft.wav');
+otherTheftSound.setAttribute('preload', 'auto');
+
+var otherCrimeSound = document.createElement('audio');
+otherCrimeSound.setAttribute('src', 'sounds/other-crime.wav');
+otherCrimeSound.setAttribute('preload', 'auto');
+
 var publicOrderSound = document.createElement('audio');
-publicOrderSound.setAttribute('src', 'wav/deux.wav');
+publicOrderSound.setAttribute('src', 'sounds/public-order.wav');
 publicOrderSound.setAttribute('preload', 'auto');
+
+var vehicleCrimeSound = document.createElement('audio');
+vehicleCrimeSound.setAttribute('src', 'sounds/vehicle-crime.wav');
+vehicleCrimeSound.setAttribute('preload', 'auto');
+
+var drugsSound = document.createElement('audio');
+drugsSound.setAttribute('src', 'sounds/drugs.wav');
+drugsSound.setAttribute('preload', 'auto');
+
+var criminalDamageArsonSound = document.createElement('audio');
+criminalDamageArsonSound.setAttribute('src', 'sounds/criminal-damage-arson.wav');
+criminalDamageArsonSound.setAttribute('preload', 'auto');
+
+var burglarySound = document.createElement('audio');
+burglarySound.setAttribute('src', 'sounds/burglary.wav');
+burglarySound.setAttribute('preload', 'auto');
+
+var robberySound = document.createElement('audio');
+robberySound.setAttribute('src', 'sounds/robbery.wav');
+robberySound.setAttribute('preload', 'auto');
+
+var TheftFromPersonSound = document.createElement('audio');
+TheftFromPersonSound.setAttribute('src', 'sounds/theft-from-the-person.wav');
+TheftFromPersonSound.setAttribute('preload', 'auto');
+
+var possesionOfWeponsSound = document.createElement('audio');
+possesionOfWeponsSound.setAttribute('src', 'sounds/possession-of-wepons.wav');
+possesionOfWeponsSound.setAttribute('preload', 'auto');
+
+var violentCrimeSound = document.createElement('audio');
+violentCrimeSound.setAttribute('src', 'sounds/Violent-crime.wav');
+violentCrimeSound.setAttribute('preload', 'auto');
+//==========================================================================
 
 
 function initialize() { 
@@ -102,17 +156,37 @@ function get_current_loc() {
         console.log(CrimesDataCat[arrayLoc]);
 
 
-        //////////////////////////////////////////////////////
-        // Play sound files ///////////////////////////////////
-        //////////////////////////////////////////////////////
-        if(CrimesDataCat[arrayLoc] === "anti-social-behaviour" ) {       
-//          document.getElementById('violinPlay').play();
-        } else if (CrimesDataCat[arrayLoc] === "shoplifting" ){
-//          document.getElementById('bassPlay').play();
-        } else if (CrimesDataCat[arrayLoc] === "public-order" ) {
-          publicOrderSound.play();  
-        }
-        //////////////////////////////////////////////////////
+		  // ================================Play sound files ================================
+		          if(CrimesDataCat[arrayLoc] === "violent-crime" ) {                        
+		            antiSocialBehaviourSound.play(); 
+		          } else if (CrimesDataCat[arrayLoc] === "possession-of-wepons" ){
+		            possesionOfWeponsSound.play(); 
+		          } else if (CrimesDataCat[arrayLoc] === "theft-from-the-person" ) {
+		            TheftFromPersonSound.play();  
+		          } else if (CrimesDataCat[arrayLoc] === "robbery" ){
+		            robberySound.play(); 
+		          } else if (CrimesDataCat[arrayLoc] === "burglary" ) {
+		            burglarySound.play(); 
+		          } else if (CrimesDataCat[arrayLoc] === "criminal-damage-arson" ){
+		            criminalDamageArsonSound.play();   
+		          } else if (CrimesDataCat[arrayLoc] === "drugs" ) {
+		            drugsSound.play();  
+		          } else if (CrimesDataCat[arrayLoc] === "vehicle-crime" ){
+		            vehicleCrimeSound.play();   
+		          } else if (CrimesDataCat[arrayLoc] === "public-order" ) {
+		            publicOrderSound.play();  
+		          } else if (CrimesDataCat[arrayLoc] === "other-theft" ){
+		            otherTheftSound.play();  
+		          } else if (CrimesDataCat[arrayLoc] === "other-crime" ) {
+		            otherCrimeSound.play();   
+		          } else if (CrimesDataCat[arrayLoc] === "shoplifting" ){
+		            shopliftingSound.play();  
+		          } else if (CrimesDataCat[arrayLoc] === "anti-social-behaviour" ) {
+		            antiSocialBehaviourSound.play(); 
+		          } else if (CrimesDataCat[arrayLoc] === "bicycle-theft" ){
+		            bicycleTheftSound.play();  
+		          } 
+		  //===================================================================================
 
 
 

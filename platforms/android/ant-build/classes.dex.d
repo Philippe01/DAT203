@@ -6,6 +6,13 @@
 /Users/phillipemarr/Documents/DAT203/platforms/android/ant-build/classes/edu/dat/my/R$string.class \
 /Users/phillipemarr/Documents/DAT203/platforms/android/ant-build/classes/edu/dat/my/R$xml.class \
 /Users/phillipemarr/Documents/DAT203/platforms/android/ant-build/classes/edu/dat/my/R.class \
+/Users/phillipemarr/Documents/DAT203/platforms/android/ant-build/classes/nl/xservices/plugins/SocialSharing$1.class \
+/Users/phillipemarr/Documents/DAT203/platforms/android/ant-build/classes/nl/xservices/plugins/SocialSharing$2$1$1.class \
+/Users/phillipemarr/Documents/DAT203/platforms/android/ant-build/classes/nl/xservices/plugins/SocialSharing$2$1.class \
+/Users/phillipemarr/Documents/DAT203/platforms/android/ant-build/classes/nl/xservices/plugins/SocialSharing$2.class \
+/Users/phillipemarr/Documents/DAT203/platforms/android/ant-build/classes/nl/xservices/plugins/SocialSharing$3.class \
+/Users/phillipemarr/Documents/DAT203/platforms/android/ant-build/classes/nl/xservices/plugins/SocialSharing$SocialSharingRunnable.class \
+/Users/phillipemarr/Documents/DAT203/platforms/android/ant-build/classes/nl/xservices/plugins/SocialSharing.class \
 /Users/phillipemarr/Documents/DAT203/platforms/android/ant-build/classes/org/apache/cordova/camera/CameraLauncher.class \
 /Users/phillipemarr/Documents/DAT203/platforms/android/ant-build/classes/org/apache/cordova/camera/ExifHelper.class \
 /Users/phillipemarr/Documents/DAT203/platforms/android/ant-build/classes/org/apache/cordova/camera/FileHelper.class \

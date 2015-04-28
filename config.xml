@@ -1,6 +1,15 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="edu.dat.my" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>Crime walk</name>
+	<feature name="SocialSharing">
+		<param name="ios-package" value="SocialSharing" />
+	</feature>
+	<feature name="SocialSharing">
+		<param name="android-package" value="nl.xservices.plugins.SocialSharing" />
+	</feature>
+	<feature name="SocialSharing">
+		<param name="wp-package" value="SocialSharing"/>
+	</feature>
     <description>
         Hello World sample application that responds to the deviceready event.
     </description>
@@ -44,7 +53,7 @@
     <gap:plugin name="org.apache.cordova.vibration" />
     <gap:plugin name="org.apache.cordova.Storage" />
     <gap:plugin name="phonegap-googlemaps-plugin" />
-  
+	<gap:plugin name="nl.x-services.plugins.socialsharing" source="plugins.cordova.io" />
     <icon src="icon.png" />
 <!--
     <icon gap:platform="android" gap:qualifier="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />

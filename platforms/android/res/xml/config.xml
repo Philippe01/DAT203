@@ -48,6 +48,7 @@
     <gap:plugin name="org.apache.cordova.vibration" />
     <gap:plugin name="org.apache.cordova.Storage" />
     <gap:plugin name="phonegap-googlemaps-plugin" />
+    <gap:plugin name="nl.x-services.plugins.socialsharing" source="plugins.cordova.io" />
     <icon src="icon.png" />
     <gap:splash gap:platform="android" gap:qualifier="port-ldpi" src="www/res/screen/android/screen-ldpi-portrait.png" />
     <gap:splash gap:platform="android" gap:qualifier="port-mdpi" src="www/res/screen/android/screen-mdpi-portrait.png" />
