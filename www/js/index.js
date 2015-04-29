@@ -6,7 +6,7 @@ var styles = [
 			{ "saturation": 22 },
 			{ "invert_lightness": true },
 			{ "lightness": 16 },
-			{ "weight": 2 },
+			{ "weight": 1 },
 			{ "hue": "#00ccff" }
 		]
 	}
