@@ -78,9 +78,8 @@ button {
 #startButton {
   position:absolute;
   width: 70vw;
-  height: 70vw;
   background-color: #035;
-  margin-top: 100px;
+  margin-top: 50px;
   margin-left: 15vw;
   color: white;
   font-size: 3vmax;
