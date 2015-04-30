@@ -186,7 +186,7 @@ function get_current_loc() {
 
 		for (var i = 0; i < heatmapData.length; i++) {
 
-			if ((Math.abs(userLocationLat - heatmapData[i].k) < 0.0002) && (Math.abs(userLocationLon - heatmapData[i].D) < 0.0002))  {
+			if ((Math.abs(userLocationLat - heatmapData[i].A) < 0.0002) && (Math.abs(userLocationLon - heatmapData[i].F) < 0.0002))  {
 				var arrayLoc = i        
 
 				console.log(CrimesDataCat[arrayLoc]);
