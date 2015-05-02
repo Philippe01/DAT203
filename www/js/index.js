@@ -313,9 +313,10 @@ function geolocationSuccess(position) {
 		}        
 	}
 	mapOptions = {
-		center: { lat: location_lat, lng: location_long},
-		zoom: 14,
+		center: { lat: location_lat, lng: location_long-0.01},
+		zoom: 15,
 		styles: styles,
+		draggable: false
 	};
 
 	map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
